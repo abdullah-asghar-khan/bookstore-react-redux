@@ -10,7 +10,7 @@ const booksReducer = (state = initialState, action) => {
     case BOOK_ADDED:
       return [...state, action.playload];
     case BOOK_REMOVED:
-      return state.filter((book) = book.id !== action.id);
+      return state.filter((book) => book.id !== action.id);
     default:
       return state;
   }
