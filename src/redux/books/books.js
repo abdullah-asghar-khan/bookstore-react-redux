@@ -1,33 +1,57 @@
-const BOOK_ADDED = 'BOOK_ADDED';
-const BOOK_REMOVED = 'BOOK_REMOVED';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-export const doAddBook = (book) => ({ type: BOOK_ADDED, playload: book });
-export const doRemoveBook = (id) => ({ type: BOOK_REMOVED, id });
+const transform = (data) => {
+  const arr = Object.entries(data);
+  let result = [];
+  arr.forEach((item) => {
+    const itemId = item[0];
+    const book = item[1][0];
+    book.item_id = itemId;
+    result = [...result, book];
+  });
+  return result;
+};
+const BOOK_ADDED = 'ADD_BOOK/requestStatus';
+const BOOK_REMOVED = 'REMOVED_BOOK/requestStatus';
+const BOOKS = 'BOOKS/requestStatus';
+export const url = (id = '') => `https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/Qf3rTrhGNg4ve0WH5XO8/books/${id}`;
 
-const initialState = [
-  {
-    title: 'The Wolf and the Watchman',
-    author: 'Niklas Natt',
-    id: '1',
+export const doAddBook = createAsyncThunk(
+  BOOK_ADDED,
+  async (book) => {
+    const response = await axios.post(url(), book);
+    const data = await response.data;
+    return { book, data };
   },
-  {
-    title: 'The Glided Wolves',
-    author: 'Oshani Chokshi',
-    id: '2',
+);
+export const doRemoveBook = createAsyncThunk(
+  BOOK_REMOVED,
+  async (id) => {
+    const response = await axios.delete(url(id), { item_id: id });
+    const message = await response.data;
+    return { id, message };
   },
-  {
-    title: 'The House of Broken Angels',
-    author: 'Luis Alberto',
-    id: '3',
-  },
+);
 
-];
+export const fetchBookList = createAsyncThunk(
+  BOOKS,
+  async () => {
+    const response = await axios.get(url());
+    const bookList = await response.data;
+    const bookArray = transform(bookList);
+    return bookArray;
+  },
+);
+const initialState = [];
 const booksReducer = (state = initialState, action) => {
   switch (action.type) {
-    case BOOK_ADDED:
-      return [...state, action.playload];
-    case BOOK_REMOVED:
-      return state.filter((book) => book.id !== action.id);
+    case 'BOOKS/requestStatus/fulfilled':
+      return action.payload;
+    case 'ADD_BOOK/requestStatus/fulfilled':
+      return [...state, action.payload.book];
+    case 'REMOVED_BOOK/requestStatus/fulfilled':
+      return state.filter((book) => book.item_id !== action.payload.id);
     default:
       return state;
   }
