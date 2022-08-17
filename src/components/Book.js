@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { doRemoveBook } from '../redux/books/books';
 import { CircularProgressbar } from 'react-circular-progressbar';
+import { doRemoveBook } from '../redux/books/books';
 import 'react-circular-progressbar/dist/styles.css';
 
 const Book = ({ title, author, id }) => {
@@ -11,7 +11,6 @@ const Book = ({ title, author, id }) => {
   return (
     <li className="book-card">
       <div className="book-name-wrapper">
-        <span>{category}</span>
         <h3>{title}</h3>
         <p>{author}</p>
         <div className="book-buttons-wrap">
@@ -22,7 +21,7 @@ const Book = ({ title, author, id }) => {
               dispatch(doRemoveBook(id));
             }}
           >
-          Remove
+            Remove
           </button>
           <button type="button">Edit</button>
         </div>
@@ -57,7 +56,7 @@ Book.propTypes = {
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
+  // category: PropTypes.string.isRequired,
 };
 
 export default Book;
