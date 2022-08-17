@@ -18,7 +18,7 @@ nav {
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: black;
+  color: #0290ff;
   text-decoration: none;
 }
 
@@ -50,5 +50,5 @@ nav {
 }
 
 .user-icon > svg {
-  color: purple;
+  color: var(--blue);
 }

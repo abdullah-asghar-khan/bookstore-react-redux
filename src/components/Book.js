@@ -56,7 +56,6 @@ Book.propTypes = {
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  // category: PropTypes.string.isRequired,
 };
 
 export default Book;

@@ -36,7 +36,7 @@
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: orange;
+  color: var(--blueVar1);
 }
 
 .book-name-wrapper h3 {
@@ -76,13 +76,13 @@
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: orangered;
+  color: var(--blueVar1);
 }
 
 .chapter-info button {
   padding: 0.438rem 1.188rem 0.5rem 1.375rem;
   border-radius: 3px;
-  background-color: green;
+  background-color: var(--blue);
   border: none;
   margin: 0.5rem 0;
   color: var(--white);
