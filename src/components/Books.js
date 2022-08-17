@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchBookList } from '../redux/books/books';
 import Book from './Book';
 import AddBookForm from './AddBookForm';
-import'./styles/'
+import'./styles/books.css'
 
 const Books = () => {
   const books = useSelector((state) => state.books);
